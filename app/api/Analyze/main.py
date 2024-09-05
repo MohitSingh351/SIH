@@ -319,25 +319,26 @@ class_info = {
 }
 
 # Load and preprocess the image
-image_path = 'tomato___yellow_leaf_curl.png'
-image = cv2.imread(sys.argv[1])
-image = cv2.resize(image, (224, 224))  # Ensure the size matches the model's input shape
-image = image.astype('float32') / 255.0  # Normalize the image
-image = np.expand_dims(image, axis=0)  # Add batch dimension
+image_path = 'tomato___yellow_leaf_curl.png'  # Path to the image file
+image = cv2.imread(image_path)  # Read the image from the file
+image = cv2.resize(image, (224, 224))  # Resize the image to match the input size of the model (224x224 pixels)
+image = image.astype('float32') / 255.0  # Normalize the image pixel values to the range [0, 1]
+image = np.expand_dims(image, axis=0)  # Add a batch dimension to the image array (required by the model/model requirement)
 
 # Predict the class of the image
-predictions = model.predict(image)
-predicted_class_index = np.argmax(predictions)
-predicted_class_label = class_labels[predicted_class_index]
+predictions = model.predict(image)  # Use the model to predict the class probabilities for the image
+predicted_class_index = np.argmax(predictions)  # Get the index of the class with the highest probability
+predicted_class_label = class_labels[predicted_class_index]  # Map the index to the corresponding class label
 
 # Retrieve detailed information
-plant_info = class_info.get(predicted_class_label, None)
+plant_info = class_info.get(predicted_class_label, None)  # Retrieve detailed information for the predicted class
 
-if plant_info:
-    print(f"Plant Name: {plant_info['plant_name']}")
-    print(f"Status: {plant_info['status']}")
-    print(f"Cure: {plant_info['cure']}")
-    print(f"Maintain Healthy: {plant_info['maintain_healthy']}")
-    print(f"Recommended Medicine: {plant_info['medicine']}")
+if plant_info:  # Check if information for the predicted class is available
+    print(f"Plant Name: {plant_info['plant_name']}")  # Print the plant name
+    print(f"Status: {plant_info['status']}")  # Print the disease or status
+    print(f"Cure: {plant_info['cure']}")  # Print the recommended cure
+    print(f"Maintain Healthy: {plant_info['maintain_healthy']}")  # Print tips to maintain healthy plants
+    print(f"Recommended Medicine: {plant_info['medicine']}")  # Print the recommended medicine
 else:
-    print("Information for this class is not available.")
+    print("Information for this class is not available.")  # Inform the user if no information is available for the predicted class
+
