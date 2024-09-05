@@ -29,6 +29,14 @@ const page = () => {
     const base64 = await convertToBase64(file)
     setImg(base64)
   }
+
+  const AnalyzeImage = () => {
+    if (img == "logo.png") {
+      alert("Please Upload Image")
+    } else {
+      alert("Thanks For Uploading image")
+    }
+  }
   return (
     <main className="flex flex-col items-center justify-evenly upmain">
       <div data-aos="fade-right" data-aos-delay="300" className="flex flex-col w-[50%] gap-3 px-4">
@@ -52,7 +60,7 @@ const page = () => {
             <span>Upload Image</span>
           </label>
           <input id="file-upload" type="file" className="hidden" onChange={(e) => { ChangeImg(e) }} />
-          <div data-aos-delay="800" data-aos="fade-left" className="w-[45%] py-2 bg-sky-600 flex items-center justify-center gap-2 text-white rounded-full cursor-pointer hover:bg-sky-700 transition-all">
+          <div data-aos-delay="800" data-aos="fade-left" onClick={AnalyzeImage} className="w-[45%] py-2 bg-sky-600 flex items-center justify-center gap-2 text-white rounded-full cursor-pointer hover:bg-sky-700 transition-all">
             <img src="analyse.gif" alt="Not Found" className="h-8" />
             <span>Analyze Image</span>
           </div>
