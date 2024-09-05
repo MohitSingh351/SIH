@@ -27,7 +27,19 @@ const Navbar = () => {
 
     useEffect(() => {
         AOS.init();
+
+        let addScript = document.createElement('script')
+        addScript.setAttribute('src', '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit')
+        document.body.appendChild(addScript)
+        window.googleTranslateElementInit = googleTranslateElementInit
     }, [])
+
+    const googleTranslateElementInit = () => {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            // layout: google.translate.TranslateE1ement.InlineLayout.SIMPLE,
+        }, 'google_translate_element');
+    }
 
     const ConfirmLogOut = () => {
         let input = confirm("Do you really want to LogOut ?");
@@ -63,6 +75,7 @@ const Navbar = () => {
                 </svg>
             </div>
             }
+            <div id='google_translate_element' className='w-fit'></div>
         </nav>
     )
 }
